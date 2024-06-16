@@ -75,6 +75,7 @@ public class MenuView extends JFrame {
 			e.printStackTrace();
 		}
 		adicionarButton = new JButton("Adicionar");
+		adicionarButton.setEnabled(false);
 		
 		cadastrarPanel.add(clienteLabel);
 		formularioPanel.add(nomeLabel);
@@ -119,6 +120,20 @@ public class MenuView extends JFrame {
 	public JMenuItem getSair() {
 		return sair;
 	}
+
+
+	public JFormattedTextField getCpfField() {
+		return cpfField;
+	}
+
+
+	public JButton getAdicionarButton() {
+		return adicionarButton;
+	}
+	
+	
+	
+	
 	
 	
 	
