@@ -1,7 +1,10 @@
 package controller;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -31,6 +34,8 @@ public class MenuController {
 		menuView.getItemCadastrar().addActionListener(this.actionHandler);
 		menuView.getItemCadastrar().setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
 		menuView.getSair().addActionListener(this.actionHandler);
+		menuView.getNomeField().addCaretListener(this.caretHandler);
+		menuView.getNomeField().addFocusListener(this.caretHandler);
 		menuView.getCpfField().addCaretListener(this.caretHandler);
 	}
 	
@@ -53,17 +58,38 @@ public class MenuController {
 		}	
 	}
 	
-	private class CaretHandler implements CaretListener {
-
+	private class CaretHandler implements CaretListener, FocusListener {
 		@Override
 		public void caretUpdate(CaretEvent e) {
+			String nome = menuView.getNomeField().getText();
 			String cpf = menuView.getCpfField().getText();
-			if (ValidadorCPF.validarCPF(cpf)) {
+			if (ValidadorCPF.validarCPF(cpf) && nome.length() > 5 && !nome.equalsIgnoreCase("Nome Completo")) {
 				menuView.getAdicionarButton().setEnabled(true);
 			} else {
 				menuView.getAdicionarButton().setEnabled(false);
 			}
 			
+		}
+
+		@Override
+		public void focusGained(FocusEvent e) {
+			if (e.getSource()==menuView.getNomeField()) {
+				if (menuView.getNomeField().getText().equalsIgnoreCase("Nome Completo")) {
+					menuView.getNomeField().setText("");
+					menuView.getNomeField().setForeground(Color.BLACK);
+				}
+			}
+			
+		}
+
+		@Override
+		public void focusLost(FocusEvent e) {
+			if (e.getSource()==menuView.getNomeField()) {
+				if (menuView.getNomeField().getText().equalsIgnoreCase("")) {
+					menuView.getNomeField().setText("Nome Completo");
+					menuView.getNomeField().setForeground(Color.LIGHT_GRAY);
+				}
+			}
 		}
 	}
 	

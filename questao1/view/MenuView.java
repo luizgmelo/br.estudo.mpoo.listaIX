@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.text.ParseException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -25,6 +26,7 @@ public class MenuView extends JFrame {
 	JMenu subMenuCliente;
 	JMenu subMenuExit;
 	JMenuItem itemCadastrar;
+	ImageIcon cadastarIcon;
 	JLabel clienteLabel;
 	Font fontConfiguration;
 	JPanel formularioPanel;
@@ -53,7 +55,8 @@ public class MenuView extends JFrame {
 		sair = new JMenuItem("Sair");
 		subMenuCliente = new JMenu("Cliente");
 		subMenuExit = new JMenu("Exit");
-		itemCadastrar = new JMenuItem("Cadastrar");
+		cadastarIcon = new ImageIcon("image/cadastrar-icon.png");
+		itemCadastrar = new JMenuItem("Cadastrar", cadastarIcon);
 		itemRemover = new JMenuItem("Remover");
 		itemAtualizar = new JMenuItem("Atualizar");
 		itemBuscar = new JMenuItem("Buscar");
@@ -67,7 +70,8 @@ public class MenuView extends JFrame {
 		formularioPanel.setLayout(new GridLayout(2, 2, 10, 10));
 		formularioPanel.setBackground(Color.LIGHT_GRAY);
 		nomeLabel = new JLabel("Nome");
-		nomeField = new JTextField(10);
+		nomeField = new JTextField("Nome Completo", 10);
+		nomeField.setForeground(Color.LIGHT_GRAY);
 		cpfLabel = new JLabel("Cpf");
 		try {
 			cpfField = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
@@ -130,12 +134,11 @@ public class MenuView extends JFrame {
 	public JButton getAdicionarButton() {
 		return adicionarButton;
 	}
-	
-	
-	
-	
-	
-	
+
+
+	public JTextField getNomeField() {
+		return nomeField;
+	}
 	
 	
 	
